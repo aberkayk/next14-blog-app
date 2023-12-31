@@ -2,44 +2,34 @@ import Image from "next/image";
 import styles from "./single-post.module.css";
 import PostUser from "@/components/post-user/post-user";
 import { Suspense } from "react";
+import { getPost } from "@/lib/data";
 
-const getData = async (slug) => {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${slug}`
-  );
+export const generateMetadata = async ({ params }) => {
+  const slug = params.slug;
 
-  if (!res.ok) {
-    throw new Error("Something went wrong");
-  }
+  const post = await getPost(slug);
 
-  return res.json();
+  return {
+    title: post.title,
+    description: post.description,
+  };
 };
 
 const SinglePostPage = async ({ params }) => {
   const slug = params.slug;
 
-  const post = await getData(slug);
+  const post = await getPost(slug);
 
   return (
     <div className={styles.container}>
-      <div className={styles.imgContainer}>
-        <Image
-          src="https://images.pexels.com/photos/19491009/pexels-photo-19491009/free-photo-of-doga-duvar-yemek-yiyor-maymun.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt=""
-          fill
-          className={styles.img}
-        />
-      </div>
+      {post.img && (
+        <div className={styles.imgContainer}>
+          <Image src={post.img} alt="" fill className={styles.img} />
+        </div>
+      )}
       <div className={styles.textContainer}>
         <h1 className={styles.title}>{post.title}</h1>
         <div className={styles.detail}>
-          <Image
-            className={styles.avatar}
-            src="https://images.pexels.com/photos/19491009/pexels-photo-19491009/free-photo-of-doga-duvar-yemek-yiyor-maymun.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-            width={50}
-            height={50}
-          />
           <Suspense
             fallback={
               <div className={styles.detailText}>
@@ -52,7 +42,9 @@ const SinglePostPage = async ({ params }) => {
           </Suspense>
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
-            <span className={styles.detailValue}>01.01.2024</span>
+            <span className={styles.detailValue}>
+              {post.createdAt.toString().slice(4, 16)}
+            </span>
           </div>
         </div>
         <div className={styles.content}>{post.body}</div>

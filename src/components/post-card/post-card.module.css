@@ -51,7 +51,25 @@
 }
 
 .link {
-  text-decoration: underline;
   display: flex;
   justify-content: center;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: rgb(95, 94, 94);
+  line-height: 30px;
+  transition: ease-in;
+  transition-duration: 200ms;
+}
+
+.link:hover {
+  transform: scale(1.1);
+}
+
+.noImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: x-large;
+  color: rgb(118, 119, 120);
 }
