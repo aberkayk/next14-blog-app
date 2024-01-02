@@ -1,7 +1,7 @@
 "use client";
 
 import { addUser } from "@/lib/action";
-import styles from "./adminUserForm.module.css";
+import styles from "./admin-user-form.module.css";
 import { useFormState } from "react-dom";
 
 const AdminUserForm = () => {

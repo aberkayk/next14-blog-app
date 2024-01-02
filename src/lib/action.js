@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
+import bcrypt from "bcryptjs";
 
 export const addPost = async (prevState, formData) => {
   const { title, desc, slug, userId } = Object.fromEntries(formData);
@@ -122,7 +123,7 @@ export const register = async (previousState, formData) => {
 
     return { success: true };
   } catch (err) {
-    console.log(err);
+    console.log("ERROR:", err);
     return { error: "Something went wrong!" };
   }
 };
