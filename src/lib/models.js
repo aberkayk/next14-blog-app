@@ -12,12 +12,11 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      min: 6,
+      unique: true,
+      max: 50,
     },
     password: {
       type: String,
-      required: true,
-      min: 6,
     },
     img: {
       type: String,
@@ -57,6 +56,6 @@ const postSchema = new mongoose.Schema(
 );
 
 export const User =
-  mongoose.models.User || mongoose.model("User", userSchema);
+  mongoose.models?.User || mongoose.model("User", userSchema);
 export const Post =
-  mongoose.models.Post || mongoose.model("Post", postSchema);
+  mongoose.models?.Post || mongoose.model("Post", postSchema);
