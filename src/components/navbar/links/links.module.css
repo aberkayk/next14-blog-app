@@ -14,9 +14,15 @@
   border-radius: 100%;
 }
 
-.menuButton,
-.mobileLinks {
+.menuButton {
   display: none;
+}
+
+.mobileLinks {
+  position: absolute;
+  width: -50%;
+  transition: ease-in-out;
+  transition-duration: 1000ms;
 }
 
 @media (max-width: 768px) {
@@ -40,5 +46,6 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    background-color: var(--bg);
   }
 }
